@@ -3,6 +3,8 @@
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
+// sass resources/scss/argon-dashboard.scss public/assets/css/argon-dashboard.css
+
 $argon-background-color: #ffffff !default; // Testing
 $font-color:            #67748e !default;
 $h-color:               #344767 !default;
@@ -53,7 +55,7 @@ $colors: (
 // scss-docs-end colors-map
 
 $primary:       #4C82F0 !default;
-$secondary:     #8392ab !default;
+$secondary:     #a7b8f8 !default;
 $info:          #11cdef !default;
 $success:       #2dce89 !default;
 $warning:       #fb6340 !default;

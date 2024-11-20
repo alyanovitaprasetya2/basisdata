@@ -23,7 +23,7 @@ class PageController extends Controller
 
     public function vr()
     {
-        return view("pages.virtual-reality");
+        return view("pages.category");
     }
 
     public function rtl()
