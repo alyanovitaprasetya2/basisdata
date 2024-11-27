@@ -3,7 +3,7 @@
     <div class="sidenav-header">
         <a class="navbar-brand d-flex justify-content-center h-100 align-items-center p-1 m-0" href="{{ route('home') }}"
             target="_blank">
-            <img src="./assets/logo/cashier.png" class="navbar-brand-img" style="width: 120px;" alt="main_logo">
+            <img src="{{ asset('assets/logo/cashier.png') }}" class="navbar-brand-img" style="width: 120px;" alt="main_logo">
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -28,11 +28,26 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'rekap' ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
+                    <div
+                        class="text-center me-2 d-flex align-items-center justify-content-center">
+                        @include('layouts.icons.rekap')
+                    </div>
+                    <span class="nav-link-text ms-1">Rekap Penjualan</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'produk' ? 'active text-primary' : '' }}" href="{{ route('produk') }}">
                     <div class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.product')
                     </div>
                     <span class="nav-link-text ms-1">Produk</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'pegawai' ? 'active text-primary' : '' }}" href="{{ route('pegawai') }}">
+                    @include('layouts.icons.employee')
+                    <span class="nav-link-text ms-1">Pegawai</span>
                 </a>
             </li>
             <li class="nav-item">

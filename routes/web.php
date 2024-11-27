@@ -25,8 +25,10 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\RekapController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -53,6 +55,26 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('/do-update/{id}', [ProdukController::class, 'doUpdate'])->name('produk.doUpdate');
 		Route::delete('/delete/{id}', [ProdukController::class, 'delete'])->name('produk.delete');
 		Route::post('/do-create', [ProdukController::class, 'doCreate'])->name('produk.create');
+	});
+
+	// PEGAWAI
+	Route::prefix('/pegawai')->group(function() {
+		Route::get('/list', [PegawaiController::class, 'index'])->name('pegawai');
+		Route::get('/add', [PegawaiController::class, 'add'])->name('pegawai.add');
+		Route::get('/update/{id}', [PegawaiController::class, 'update'])->name('pegawai.update');
+		Route::put('/do-update/{id}', [PegawaiController::class, 'doUpdate'])->name('pegawai.doUpdate');
+		Route::delete('/delete/{id}', [PegawaiController::class, 'delete'])->name('pegawai.delete');
+		Route::post('/do-create', [PegawaiController::class, 'doCreate'])->name('pegawai.doCreate');
+	});
+
+	// REKAP PENJUALAN
+	Route::prefix('/rekap')->group(function() {
+		Route::get('/list', [RekapController::class, 'index'])->name('rekap');
+		Route::get('/add', [RekapController::class, 'add'])->name('rekap.add');
+		Route::get('/update/{id}', [RekapController::class, 'update'])->name('rekap.update');
+		Route::put('/do-update/{id}', [RekapController::class, 'doUpdate'])->name('rekap.doUpdate');
+		Route::delete('/delete/{id}', [RekapController::class, 'delete'])->name('rekap.delete');
+		Route::post('/do-create', [RekapController::class, 'doCreate'])->name('rekap.doCreate');
 	});
 
 	//TRANSAKSI
