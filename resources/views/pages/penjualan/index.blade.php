@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <div class="row gx-5">
+                    <div class="row gx-2">
                         @foreach ($produk as $p)
                         <div class="col-md-3 mt-5">
                             <button class="card card-hover position-relative tambah-pesanan" 
@@ -30,12 +30,12 @@
                                     data-nama="{{ $p->NamaProduk }}"
                                     data-price="{{ $p->Price }}"
                                     style="border: none; background: none; padding: 0; cursor: pointer; overflow: hidden;">
-                                <div class="price-label d-flex align-items-center justify-content-center">
-                                    <h4 class="text-light fw-bolder m-0">{{ formatRupiah($p->Price) }}</h4>
+                                <div class="price-label d-flex align-items-center justify-content-center" style="width: 90px; height:40px" >
+                                    <p class="text-light fw-bolder m-0 " style="font-size: 14px">{{ formatRupiah($p->Price) }}</p>
                                 </div>
                                 <div class="card-body p-3">
                                     <div class="text-center">
-                                        <img src="{{ Storage::url($p->image_path) }}" class="rounded-3 img-cover">
+                                        <img src="{{ Storage::url($p->image_path) }}" class="rounded-3 img-cover" style="width: 100%; height: auto; max-height: 150px;">
                                     </div>
                                     <div class="body pt-3">
                                         <h5 class="fw-bold text-start text-dark mb-2">{{ $p->NamaProduk }}</h5>
@@ -78,55 +78,126 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        const pesanan = {};
-        let totalHarga = 0;
+            const pesanan = {};
+            let totalHarga = 0;
 
-        function formatRupiah(angka) {
-            return `Rp${angka.toLocaleString('id-ID')}`;
-        }
+            function formatRupiah(angka) {
+                return `Rp${angka.toLocaleString('id-ID')}`;
+            }
 
-        document.querySelectorAll(".tambah-pesanan").forEach(card => {
-            card.addEventListener("click", function () {
+            document.querySelectorAll(".tambah-pesanan").forEach(card => {
+                card.addEventListener("click", function () {
+                    const produkId = this.dataset.id;
+                    const namaProduk = this.dataset.nama;
+                    const hargaProduk = parseFloat(this.dataset.price);
+                    const imagePath = this.querySelector("img").src;
+
+                    totalHarga += hargaProduk;
+
+                    if (pesanan[produkId]) {
+                        pesanan[produkId].jumlah += 1;
+                    } else {
+                        pesanan[produkId] = { nama: namaProduk, jumlah: 1, harga: hargaProduk,  image: imagePath };
+                    }
+
+                    updatePesanan();
+                    updateTotalHarga();
+                });
+            });
+
+            function updatePesanan() {
+                const listPesanan = document.querySelector(".list-pesanan");
+                if (!listPesanan) return;
+
+                listPesanan.innerHTML = "<h5 class='fw-bold'>Pesanan:</h5>";
+
+                for (const id in pesanan) {
+                    const item = pesanan[id];
+                    const card = document.createElement("div");
+                    card.className = "card mb-3";
+                    card.innerHTML = `
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <img src="${item.image}" class="rounded-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                <p class="m-0 ms-2">${item.nama}</p>
+                            </div>
+                           <div class="d-flex flex-column align-items-end">
+                        <div class="d-flex align-items-center">
+                             <button class="btn btn-success me-2 tambah-jumlah" data-id="${id}" style="font-size: 14px;  margin: 2px; padding: 2px 4px; min-width: 24px; height: 24px;">+</button>
+                             <input type="text" value="${item.jumlah}" class="jumlah-input" data-id="${id}" style="width: 30px; text-align: center; border:none;">
+                           <button class="btn btn-danger kurang-jumlah" data-id="${id}" style="font-size: 14px; margin: 2px; padding: 2px 4px; min-width: 24px; height: 24px;">-</button>
+                        </div>
+                        <p class="m-0 fw-bold">${formatRupiah(item.harga)}</p>
+                    </div>
+
+                        </div>
+                    `;
+                    listPesanan.appendChild(card);
+                }
+
+                // Add event listeners for modifying quantities and deleting items
+                document.querySelectorAll(".jumlah-input").forEach(input => {
+            input.addEventListener("change", function () {
                 const produkId = this.dataset.id;
-                const namaProduk = this.dataset.nama;
-                const hargaProduk = parseFloat(this.dataset.price);
-
-                totalHarga += hargaProduk;
-
-                if (pesanan[produkId]) {
-                    pesanan[produkId].jumlah += 1;
+                const newJumlah = parseInt(this.value) || 0;  // Get the new quantity or 0 if invalid input
+                
+                // Ensure quantity doesn't go below 1
+                if (newJumlah < 1) {
+                    this.value = 1;
+                    pesanan[produkId].jumlah = 1;
                 } else {
-                    pesanan[produkId] = { nama: namaProduk, jumlah: 1, harga: hargaProduk };
+                    pesanan[produkId].jumlah = newJumlah;
+                }
+
+                // Recalculate totalHarga based on updated quantity
+                totalHarga = 0;
+                for (const id in pesanan) {
+                    totalHarga += pesanan[id].jumlah * pesanan[id].harga;
                 }
 
                 updatePesanan();
+                updateTotalHarga();
+            });
+        });
+
+        document.querySelectorAll(".tambah-jumlah").forEach(button => {
+            button.addEventListener("click", function () {
+                const produkId = this.dataset.id;
+                pesanan[produkId].jumlah += 1;
+                totalHarga += pesanan[produkId].harga;
+                updatePesanan();
+                updateTotalHarga();
+            });
+        });
+
+
+                document.querySelectorAll(".kurang-jumlah").forEach(button => {
+            button.addEventListener("click", function () {
+                const produkId = this.dataset.id;
+                if (pesanan[produkId].jumlah > 1) {
+                    pesanan[produkId].jumlah -= 1;
+                    totalHarga -= pesanan[produkId].harga;
+                } else {
+                    // Hapus item dari pesanan jika jumlahnya menjadi 1 (atau 0)
+                    totalHarga -= pesanan[produkId].harga;  // kurangi total harga
+                    delete pesanan[produkId];  // hapus item dari pesanan
+                }
+                updatePesanan();
+                updateTotalHarga();
+            });
+        });
+    }
+
+
+                
+
+            // Update total price element
+            function updateTotalHarga() {
                 const totalHargaElement = document.querySelector(".total-harga");
                 if (totalHargaElement) {
                     totalHargaElement.textContent = formatRupiah(totalHarga);
                 }
-            });
-        });
-
-        function updatePesanan() {
-            const listPesanan = document.querySelector(".list-pesanan");
-            if (!listPesanan) return; 
-
-            listPesanan.innerHTML = "<h5 class='fw-bold'>Pesanan:</h5>";
-
-            for (const id in pesanan) {
-                const item = pesanan[id];
-                const card = document.createElement("div");
-                card.className = "card mb-3";
-                card.innerHTML = `
-                    <div class="card-body d-flex justify-content-between">
-                        <p class="m-0 fw-bold">${item.nama}</p>
-                        <p class="m-0 fw-bold">${item.jumlah} x ${formatRupiah(item.harga)}</p>
-                    </div>
-                `;
-                listPesanan.appendChild(card);
             }
-        }
-    });
+        });
     </script>
-    
 @endsection
