@@ -9,7 +9,10 @@ class PegawaiController extends Controller
 {
     public function index()
     {
-        $pegawai = User::where('role', 2)->get();
+        $pegawai = User::where('role', 2)
+                        ->where('tempat_id', tempatID())
+                        ->get();
+
         return view('pages.pegawai.list', [
             'data' => $pegawai
         ]);
@@ -31,6 +34,7 @@ class PegawaiController extends Controller
             "email" => $request->email,
             "role" => 2,
             "password" => $request->password,
+            "tempat_id" => tempatID()
         ]);
 
         if($pegawai){

@@ -11,7 +11,7 @@ class Penjualan extends Model
 
     protected $table = 'penjualan';
 
-    protected $fillable = ['pelangganID', 'TanggalPenjualan', 'TotalHarga', 'created_by'];
+    protected $fillable = ['pelangganID', 'TanggalPenjualan', 'TotalHarga', 'created_by', 'tempat_id'];
 
     public function user()
     {

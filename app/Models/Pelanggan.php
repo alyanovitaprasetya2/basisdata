@@ -13,7 +13,8 @@ class Pelanggan extends Model
     protected $fillable = [
         "NamaPelanggan",
         "Alamat",
-        "NomorTelepon"
+        "NomorTelepon",
+        "tempat_id"
     ];
 
     public $timestamps = false;

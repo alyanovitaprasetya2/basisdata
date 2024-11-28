@@ -19,6 +19,7 @@
                 </a>
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ Route::currentRouteName() == 'penjualan' ? 'active text-primary' : '' }}" href="{{ route('penjualan') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -26,6 +27,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Penjualan</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'rekap' ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
@@ -45,18 +47,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'pegawai' ? 'active text-primary' : '' }}" href="{{ route('pegawai') }}">
-                    @include('layouts.icons.employee')
-                    <span class="nav-link-text ms-1">Pegawai</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'kategori' ? 'active text-primary' : '' }}" href="{{ route('kategori') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.category')
                     </div>
                     <span class="nav-link-text ms-1">Kategori</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'pegawai' ? 'active text-primary' : '' }}" href="{{ route('pegawai') }}">
+                    @include('layouts.icons.employee')
+                    <span class="nav-link-text ms-1">Pegawai</span>
                 </a>
             </li>
             <li class="nav-item">
