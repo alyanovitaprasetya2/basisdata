@@ -23,6 +23,7 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
+        'tempat_id'
     ];
 
     /**

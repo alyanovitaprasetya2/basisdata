@@ -9,7 +9,7 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::where('tempat_id', tempatID())->get();
 
         return view('pages.kategori.category', [
             'kategori' => $kategori
@@ -28,7 +28,8 @@ class KategoriController extends Controller
         ]);
 
        $kategori = Kategori::create([
-        "nama" => $request->nama
+            "nama" => $request->nama,
+            "tempat_id" => tempatID()
        ]);
 
        if ($kategori) {

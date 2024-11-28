@@ -12,7 +12,7 @@ class Produk extends Model
     protected $table = "produk";
 
     protected $fillable = [
-        'kategori_id', 'NamaProduk', 'Harga', 'Stok', 'Price', 'image_path'
+        'kategori_id', 'NamaProduk', 'Harga', 'Stok', 'Price', 'image_path', 'tempat_id'
     ];
 
     public $timestamps = false;

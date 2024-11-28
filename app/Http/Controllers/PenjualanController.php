@@ -9,7 +9,7 @@ class PenjualanController extends Controller
 {
     public function index()
     {   
-        $produk = Produk::all();
+        $produk = Produk::where('tempat_id', tempatID())->get();
         return view('pages.penjualan.index', [
             "produk" => $produk
         ]);

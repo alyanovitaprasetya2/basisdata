@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tempat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -27,7 +28,19 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
+            $user = Auth::user();
+            $request->session()->regenerate(); 
+            $tempatID = $user->tempat_id;
+
+            $tempat = Tempat::find($tempatID);
+
+            if ($tempat) {
+                session()->put('tempat_id', (int) $tempatID);
+                session()->put('tempat_nama', $tempat->nama);
+                session()->put('tempat_foto', $tempat->foto);
+            } else {
+                return redirect()->route('login')->withErrors(['error' => 'Tempat tidak ditemukan.']);
+            }
 
             return redirect()->intended('dashboard');
         }

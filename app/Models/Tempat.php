@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Tempat extends Model
 {
     use HasFactory;
 
-    protected $table = 'kategori';
-    protected $fillable = ['nama', 'tempat_id'];
+    protected $table = 'place';
 
-    public $timestamps = false;
+    protected $fillable = ['nama', 'foto'];
 }

@@ -12,20 +12,20 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produk = Produk::all();
-        return view("pages.produk.produk", compact(['produk']));
+        $produk = Produk::where('tempat_id', tempatID())->get();
+        return view("pages.produk.produk", compact('produk'));
     }
 
     public function add()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::where('tempat_id', tempatID())->get();
         return view("pages.produk.add", compact(['kategori']));
     }
 
     public function update($id)
     {
         $produk = Produk::findOrFail($id);
-        $kategori = Kategori::all();
+        $kategori = Kategori::where('tempat_id', tempatID())->get();
         return view('pages.produk.update', [
             "data" => $produk,
             "kategori" => $kategori
@@ -84,7 +84,8 @@ class ProdukController extends Controller
             'Stok'        => $request->stok,
             'image_path'  => $path,
             'Harga'       => null,
-            'kategori_id' => $request->kategori
+            'kategori_id' => $request->kategori,
+            'tempat_id'   => tempatID()
         ]);
 
         if($produk){
