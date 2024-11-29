@@ -11,8 +11,10 @@ class DetailPenjualan extends Model
     protected $table = "detail_penjualan";
 
     protected $fillable = [
-        'penjualanID', 'produkID', 'JumlahProduk', 'Subtotal', 'Tanggal', 'tempat_id'
+        'penjualanID', 'produkID', 'JumlahProduk', 'Subtotal', 'Tanggal', 'tempat_id', 'created_by'
     ];
+
+    public $timestamps = false;
 
     public function penjualan(){
         return $this->belongsTo(Penjualan::class, 'penjualanID');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entities\UserEntity;
+use App\Models\DetailPenjualan;
 use App\Models\Penjualan;
 use App\Models\Produk;
 use Carbon\Carbon;
@@ -32,6 +33,22 @@ class PenjualanController extends Controller
             "created_by"       => userID(),
             "tempat_id"        => tempatID()
         ]);
+
+        $pesananJson = $req->input('pesanan');
+        $pesananArray = json_decode($pesananJson, true);
+
+        foreach ($pesananArray as $item) {
+            DetailPenjualan::create([
+                'penjualanID' => $penjualan->id,
+                'produkID' => $item['produkID'],
+                'JumlahProduk' => $item['jumlah'],
+                'Subtotal' => $item['jumlah'] * $item['harga'],
+                'Tanggal' => Carbon::now(),
+                'tempat_id' => tempatID(),
+                'created_by' => userID()
+            ]);
+        }
+
 
         if($penjualan) {
             return redirect()->back()->with('success', 'Berhasil Membuat Pesanan');

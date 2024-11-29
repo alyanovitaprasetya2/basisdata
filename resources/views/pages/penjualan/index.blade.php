@@ -72,6 +72,7 @@
                         <form action="{{ route('penjualan.add') }}" id="orderForm" method="POST">
                             @csrf
                             <input type="hidden" class="inputan" name="totalHarga">
+                            <input type="hidden" class="inputan-pesanan" name="pesanan" value="">
                             <button type="submit" class="btn btn-primary btn-lg fs-5 m-0 mt-3 w-100">Konfirmasi</button>
                         </form>
                     </div>
@@ -121,6 +122,18 @@
                     if (inputanElement) {
                         inputanElement.value = totalHarga; 
                     }
+
+                    const pesananInput = document.querySelector(".inputan-pesanan");
+                    if (pesananInput) {
+                        pesananInput.value = JSON.stringify(
+                            Object.entries(pesanan).map(([id, item]) => ({
+                                produkID: id,
+                                jumlah: item.jumlah,
+                                harga: item.harga,
+                            }))
+                        );
+                    }
+                    console.log(pesananInput.value)
                 });
             });
 
