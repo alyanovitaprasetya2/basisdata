@@ -35,7 +35,7 @@
                         class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.rekap')
                     </div>
-                    <span class="nav-link-text ms-1">Rekap Penjualan</span>
+                    <span class="nav-link-text ms-1">Rekapitulasi</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -56,10 +56,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::PEGAWAI)
                 <a class="nav-link {{ Route::currentRouteName() == 'pegawai' ? 'active text-primary' : '' }}" href="{{ route('pegawai') }}">
                     @include('layouts.icons.employee')
                     <span class="nav-link-text ms-1">Pegawai</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'profile-static' ? 'active text-primary' : '' }}" href="{{ route('profile-static') }}">

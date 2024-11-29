@@ -79,10 +79,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/do-create', [RekapController::class, 'doCreate'])->name('rekap.doCreate');
 	});
 
-	//TRANSAKSI
+	//PENJUALAN
 	Route::prefix('/penjualan')->group(function() {
 		Route::get('/index', [PenjualanController::class, 'index'])->name('penjualan');
-		// Route::get('/add', [ProdukController::class, 'add'])->name('produk.add');
+		Route::post('/add', [PenjualanController::class, 'store'])->name('penjualan.add');
 		// Route::get('/update/{id}', [ProdukController::class, 'update'])->name('produk.update');
 		// Route::put('/do-update/{id}', [ProdukController::class, 'doUpdate'])->name('produk.doUpdate');
 		// Route::delete('/delete/{id}', [ProdukController::class, 'delete'])->name('produk.delete');
