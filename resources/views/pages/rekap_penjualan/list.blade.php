@@ -24,49 +24,36 @@
                         <thead>
                             <tr class="table-light">
                                 <th width="5%" class="text-uppercase text-center font-weight-bolder">ID</th>
-                                <th class="text-uppercase ps-2">Nama</th>
-                                <th width="30%" class="text-uppercase ps-2">Email</th>
+                                <th class="text-uppercase ps-2">Tanggal Penjualan</th>
+                                <th width="30%" class="text-uppercase ps-2">Total Harga</th>
                                 <th width="10%" class="text-uppercase text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($data as $d) --}}
+                            @foreach ($data as $d)
                             <tr>
-                                    {{-- <td>
-                                        <p class="mb-0 text-center">{{ $d->id }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="font-weight-bold mb-0">{{ $d->username }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="font-weight-bold mb-0">{{ $d->email }}</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item fw-bold text-success" href="{{ route('pegawai.update', ['id' => $d->id]) }}">Edit</a></li>
-                                            <li>
-                                                <form action="{{ route('pegawai.delete', ['id' => $d->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="dropdown-item text-danger fw-bold">Delete</button>
-                                                </form>
-                                            </li>
-                                            </ul>
-                                        </div>
-                                    </td> --}}
-                                </tr>
-                                {{-- @endforeach --}}
+                                <td>
+                                    <p class="mb-0 text-center">{{ $d->id }}</p>
+                                </td>
+                                <td>
+                                    <p class="font-weight-bold mb-0">{{ formatTanggal($d->TanggalPenjualan) }}</p>
+                                </td>
+                                <td>
+                                    <p class="font-weight-bold mb-0">{{ formatRupiah($d->TotalHarga) }}</p>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
-                    {{-- @if (!count($data))
+                    @if (!count($data))
                         <div class="text-center my-5">
                             <h5>Data Belum Tersedia😱</h5>
                             <p>Silahkan tambah data terlebih dahulu</p>
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
         </div>

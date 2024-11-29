@@ -13,6 +13,8 @@ class Penjualan extends Model
 
     protected $fillable = ['pelangganID', 'TanggalPenjualan', 'TotalHarga', 'created_by', 'tempat_id'];
 
+    public $timestamps = false;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
