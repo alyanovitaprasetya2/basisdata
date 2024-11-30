@@ -30,7 +30,7 @@
                 @endif
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'rekap' ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
+                <a class="nav-link {{ in_array(Route::currentRouteName(), ['rekap', 'rekap.detail']) ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.rekap')
