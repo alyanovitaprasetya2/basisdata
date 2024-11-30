@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// REKAP PENJUALAN
 	Route::prefix('/rekap')->group(function() {
 		Route::get('/list', [RekapController::class, 'index'])->name('rekap');
-		Route::get('/add', [RekapController::class, 'add'])->name('rekap.add');
+		Route::get('/detail/{id}', [RekapController::class, 'detail'])->name('rekap.detail');
 		Route::get('/update/{id}', [RekapController::class, 'update'])->name('rekap.update');
 		Route::put('/do-update/{id}', [RekapController::class, 'doUpdate'])->name('rekap.doUpdate');
 		Route::delete('/delete/{id}', [RekapController::class, 'delete'])->name('rekap.delete');

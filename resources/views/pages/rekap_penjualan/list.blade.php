@@ -3,11 +3,11 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Rekap Penjualan'])
     <div class="row mt-4 mx-4">
-        <div class="col-12">
+        <div class="col-6">
             <div class="card mb-4 px-4">
                 <div class="card-header px-0 d-flex justify-content-between pb-0">
                     <h6>Kategori Produk</h6>
-                    <a href="{{ route('pegawai.add') }}" class="btn btn-primary">Tambah Pegawai</a>
+                    {{-- <a href="{{ route('pegawai.add') }}" class="btn btn-primary">Tambah Pegawai</a> --}}
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="card border border-secondary">
@@ -42,7 +42,7 @@
                                     <p class="font-weight-bold mb-0">{{ formatRupiah($d->TotalHarga) }}</p>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                                    <a href="{{ route('rekap.detail', ['id' => $d->id]) }}" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
                                 </td>
                             </tr>
                             @endforeach
