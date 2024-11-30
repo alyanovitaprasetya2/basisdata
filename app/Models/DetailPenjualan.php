@@ -17,10 +17,14 @@ class DetailPenjualan extends Model
     public $timestamps = false;
 
     public function penjualan(){
-        return $this->belongsTo(Penjualan::class, 'penjualanID');
+        return $this->belongsTo(Penjualan::class, 'penjualanID', 'id');
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
     public function produk(){
-        return $this->belongsTo(Produk::class, 'produkID');
+        return $this->belongsTo(Produk::class, 'produkID', 'id');
     }
 }

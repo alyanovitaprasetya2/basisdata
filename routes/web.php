@@ -42,6 +42,8 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('nota/{id}', [RekapController::class, 'nota'])->name('nota');
 	
 	// KATEGORI
 	Route::prefix('/kategori')->group(function() {

@@ -6,7 +6,7 @@
         <div class="col-6">
             <div class="card mb-4 px-4">
                 <div class="card-header px-0 d-flex justify-content-between pb-0">
-                    <h6>Kategori Produk</h6>
+                    <h6>Rekap Penjualan</h6>
                     {{-- <a href="{{ route('pegawai.add') }}" class="btn btn-primary">Tambah Pegawai</a> --}}
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -14,7 +14,11 @@
                         <div class="card-body">
                             <form action="" method="GET">
                                 <div class="col-md-auto">
-                                    <input class="form-control" type="text" placeholder="Cari Pegawai">
+                                    <select class="form-select" name="" id="">
+                                        <option value="">2025</option>
+                                        <option value="">2024</option>
+                                        <option value="">2023</option>
+                                    </select>
                                 </div>
                             </form>
                         </div>

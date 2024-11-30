@@ -56,6 +56,53 @@ if (!function_exists('formatTanggal')) {
     }
 }
 
+function formatedDate($dateString, $withDay = true)
+{
+    // Konversi string tanggal ke timestamp
+    $timestamp = strtotime($dateString);
+
+    // Array untuk nama hari dalam bahasa Indonesia
+    $days = [
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    ];
+
+    // Array untuk nama bulan dalam bahasa Indonesia
+    $months = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+
+    // Mendapatkan nama hari
+    $dayName = $days[date('w', $timestamp)];
+
+    // Mendapatkan hari, bulan, dan tahun
+    $day = date('d', $timestamp);
+    $monthName = $months[date('n', $timestamp)];
+    $year = date('Y', $timestamp);
+
+    // Menggabungkan semuanya menjadi format yang diinginkan
+    if ($withDay) {
+        return "{$dayName}, {$day} {$monthName} {$year}";
+    }
+    return "{$day} {$monthName} {$year}";
+}
+
 
 function accessType(int $id) : string {
     return accessTypes()[$id];

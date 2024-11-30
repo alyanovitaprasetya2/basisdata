@@ -20,6 +20,11 @@ class Penjualan extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function detailPenjualan()
+    {
+        return $this->hasMany(DetailPenjualan::class, 'penjualanID', 'id');
+    }
+
     public function pelanggan()
     {
         return $this->belongsTo(Pelanggan::class, 'pelangganID');
