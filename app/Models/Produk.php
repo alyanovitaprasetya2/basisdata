@@ -17,6 +17,11 @@ class Produk extends Model
 
     public $timestamps = false;
 
+    public function detailPenjualan()
+    {
+        return $this->hasMany(DetailPenjualan::class, 'produkID', 'id');
+    }
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');

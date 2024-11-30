@@ -28,12 +28,23 @@ class RekapController extends Controller
 
     public function detail($id)
     {
-        $detail = DetailPenjualan::where('penjualanID', $id)->get();
-        $penjualan = Penjualan::where('id', $id)->get();
+        $detail = DetailPenjualan::with('penjualan')->where('penjualanID', $id)->get();
+        $penjualan = Penjualan::with('user')->where('id', $id)->first();
 
         return view('pages.rekap_penjualan.detail', [
             'detail' => $detail,
-            'penjualan' => $penjualan
+            'penjualan' => $penjualan,
+        ]);
+    }
+
+    public function nota($id)
+    {
+        $detail = DetailPenjualan::with('penjualan')->where('penjualanID', $id)->get();
+        $penjualan = Penjualan::with('user')->where('id', $id)->first();
+
+        return view('layouts.nota.nota', [
+            'detail' => $detail,
+            'penjualan' => $penjualan,
         ]);
     }
 }
