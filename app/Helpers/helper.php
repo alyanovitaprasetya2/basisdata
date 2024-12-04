@@ -10,11 +10,79 @@ if (!function_exists('formatRupiah')) {
     }
 }
 
-function accessTypes() : array {
+if (!function_exists('formatRp')) {
+    /**
+     * Format angka menjadi format rupiah tanpa "Rp".
+     *
+     * @param int|float $number
+     * @return string
+     */
+    function formatRp($number)
+    {
+        return number_format($number, 0, ',', '.');
+    }
+}
+
+function accessTypesa() : array {
     return [
         1 => "Administrator",
         2 => "Pegawai",
     ];
+}
+
+function accessTypes($access)
+{
+    switch ($access) {
+        case 1:
+            return 'Administrator';
+        case 2:
+            return 'Pegawai';
+        case 3:
+            return 'Super Admin';
+        default:
+            return 'UNKNOWN';
+    }
+}
+
+if (!function_exists('generateCode')) {
+    /**
+     * Generate a unique code with a fixed prefix and length.
+     *
+     * @return string
+     */
+    function generateCode()
+    {
+        $prefix = 'SKB'; // Prefix tetap
+        $length = 10; // Total panjang kode (termasuk prefix)
+
+        // Panjang angka yang dihasilkan (tanpa prefix)
+        $numberLength = $length - strlen($prefix);
+
+        // Pastikan panjang minimum masuk akal
+        if ($numberLength < 1) {
+            throw new InvalidArgumentException('Panjang kode harus lebih besar dari panjang prefix.');
+        }
+
+        // Generate angka random
+        $randomNumber = substr(str_shuffle(str_repeat('0123456789', $numberLength)), 0, $numberLength);
+
+        // Gabungkan prefix dengan angka random
+        return strtoupper($prefix) . $randomNumber;
+    }
+}
+
+function getPaymentMethod($metBay)
+{
+    switch ($metBay) {
+        case 1:
+            return 'TUNAI';
+        case 2:
+            return 'QRIS';
+        case 3:
+            return 'TRANSFER';
+        default:
+            return 'UNKNOWN';
+    }
 }
 
 function paymentMethod () : array {
@@ -109,22 +177,6 @@ function formatedDate($dateString, $withDay = true)
         return "{$dayName}, {$day} {$monthName} {$year}";
     }
     return "{$day} {$monthName} {$year}";
-}
-
-
-function accessType(int $id) : string {
-    return accessTypes()[$id];
-}
-
-function getUserAccessType($id)
-{
-    $data = accessTypes();
-
-    if (array_key_exists($id, $data)) {
-        return $data[$id];
-    } else {
-        return null; 
-    }
 }
 
 function tempatID(): int
