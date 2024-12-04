@@ -69,17 +69,78 @@
                             <h5 class="text-white">Total</h5>
                             <h5 class="text-white total-harga">Rp0</h5>
                         </div>
-                        <form action="{{ route('penjualan.add') }}" id="orderForm" method="POST">
-                            @csrf
-                            <input type="hidden" class="inputan" name="totalHarga">
-                            <input type="hidden" class="inputan-pesanan" name="pesanan" value="">
-                            <button type="submit" class="btn btn-primary btn-lg fs-5 m-0 mt-3 w-100">Konfirmasi</button>
+                        <form id="orderForm">
+                            <button type="button" data-bs-target="#staticBackdrop" class="btn btn-primary btn-lg fs-5 m-0 mt-3 w-100">Konfirmasi</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi Pembayaran</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('penjualan.add') }}" id="formSubmit" method="POST">
+                        @csrf
+                        <input type="hidden" class="inputan" name="totalHarga">
+                        <input type="hidden" class="inputan-pesanan" name="pesanan" value="">
+                        <input type="hidden" class="inputan-kembalian" name="kembalian" id="kembalianInput">
+                        <select class="form-select mb-3" name="meja" id="">
+                                <option value="" selected>- Pilih Meja -</option>
+                                @foreach ($meja as $k)
+                                    <option value="{{ $k->id }}" {{ old('meja') == $k->id ? 'selected' : '' }}>{{ $k->meja }}</option>
+                                @endforeach
+                        </select>
+                        <select required class="form-select mb-3" name="metode" id="">
+                            <option selected>- Pilih Metode Pembayaran -</option>
+                            <option value="1">Tunai</option>
+                            <option value="2">QRIS</option>
+                            <option value="3">Transfer</option>
+                        </select>
+                        <div class="row g-2">
+                            <div class="col-7">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" name="harga_formatted" class="form-control me-2" id="bayar" placeholder="Dibayar...">
+                                    <input type="hidden" name="bayar_raw" id="harga_raw">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="m-0 fw-medium">Kembalian: <span class="kembalian text-dark fw-bold"></span></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" form="formSubmit" class="btn btn-primary">Buat Pesanan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+
+    <script>
+        var cleave = new Cleave('#bayar', {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand',
+            delimiter: '.', 
+            numeralDecimalMark: ',' 
+        });
+
+        document.getElementById('bayar').addEventListener('input', function () {
+            var rawValue = cleave.getRawValue(); 
+            document.getElementById('harga_raw').value = rawValue;
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -91,14 +152,22 @@
             }
 
             const form = document.querySelector("#orderForm");
-            if (form) {
-                form.addEventListener("submit", function (e) {
-                    if (totalHarga === 0) {
+            const button = form.querySelector('button[type="button"]');
+
+            if (button) {
+                button.addEventListener("click", function (e) {
+                    if (Object.keys(pesanan).length === 0) {
                         e.preventDefault();
                         alert("Pilih Menu Dahulu");
+
+                        button.removeAttribute("data-bs-toggle");
+                    } else {
+                        if (!button.hasAttribute("data-bs-toggle")) {
+                            button.setAttribute("data-bs-toggle", "modal");
+                        }
                     }
                 });
-            }
+             }
 
             document.querySelectorAll(".tambah-pesanan").forEach(card => {
                 card.addEventListener("click", function () {
@@ -209,6 +278,29 @@
                         updatePesanan();
                         updateTotalHarga();
                     });
+                });
+            }
+
+            const bayarInput = document.querySelector("#bayar");
+            const kembalianInput = document.getElementById("kembalianInput");
+
+            function updateKembalian() {
+                const bayar = parseFloat(cleave.getRawValue()) || 0;
+                const kembalianElement = document.querySelector(".kembalian");
+                const kembalian = bayar - totalHarga;
+
+                if (kembalian >= 0) {
+                    kembalianElement.textContent = formatRupiah(kembalian);
+                    kembalianInput.value = kembalian;
+                } else {
+                    kembalianElement.textContent = "Belum cukup";
+                    kembalianInput.value = ""
+                }
+            }
+
+            if (bayarInput) {
+                bayarInput.addEventListener("input", function () {
+                    updateKembalian();
                 });
             }
 

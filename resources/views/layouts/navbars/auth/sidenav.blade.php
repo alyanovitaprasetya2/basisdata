@@ -64,7 +64,7 @@
                 @endif
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile-static' ? 'active text-primary' : '' }}" href="{{ route('profile-static') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active text-primary' : '' }}" href="{{ route('profile') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.profile')

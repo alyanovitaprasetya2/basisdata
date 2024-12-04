@@ -11,7 +11,7 @@ class Penjualan extends Model
 
     protected $table = 'penjualan';
 
-    protected $fillable = ['pelangganID', 'TanggalPenjualan', 'TotalHarga', 'created_by', 'tempat_id'];
+    protected $fillable = ['pelangganID', 'TanggalPenjualan', 'TotalHarga', 'created_by', 'tempat_id', 'Kode', 'Metode', 'Kembali', 'Dibayar', 'meja_id'];
 
     public $timestamps = false;
 

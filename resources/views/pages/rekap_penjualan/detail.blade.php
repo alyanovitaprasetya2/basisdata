@@ -63,7 +63,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <p class="fw-medium letter-spacing-1">AKSI</p>
-                        <a href="{{ route('nota', ['id' => $detail->first()->id]) }}" class="btn btn-primary m-0">Print<span class="ms-2">@include('layouts.icons.print')</span></a>
+                        <a href="{{ route('nota', ['id' => $id]) }}" class="btn btn-primary m-0">Print<span class="ms-2">@include('layouts.icons.print')</span></a>
                     </div>
                 </div>
             </div>

@@ -85,15 +85,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::prefix('/penjualan')->group(function() {
 		Route::get('/index', [PenjualanController::class, 'index'])->name('penjualan');
 		Route::post('/add', [PenjualanController::class, 'store'])->name('penjualan.add');
-		// Route::get('/update/{id}', [ProdukController::class, 'update'])->name('produk.update');
-		// Route::put('/do-update/{id}', [ProdukController::class, 'doUpdate'])->name('produk.doUpdate');
-		// Route::delete('/delete/{id}', [ProdukController::class, 'delete'])->name('produk.delete');
-		// Route::post('/do-create', [ProdukController::class, 'doCreate'])->name('produk.create');
 	});
 
-	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
+	Route::prefix('/profile')->group(function() {
+		Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
+	});
+
 	Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 

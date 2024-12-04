@@ -34,6 +34,7 @@ class RekapController extends Controller
         return view('pages.rekap_penjualan.detail', [
             'detail' => $detail,
             'penjualan' => $penjualan,
+            'id' => $id
         ]);
     }
 
@@ -45,6 +46,7 @@ class RekapController extends Controller
         return view('layouts.nota.nota', [
             'detail' => $detail,
             'penjualan' => $penjualan,
+            'id' => $id
         ]);
     }
 }
