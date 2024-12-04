@@ -11,7 +11,7 @@ class DetailPenjualan extends Model
     protected $table = "detail_penjualan";
 
     protected $fillable = [
-        'penjualanID', 'produkID', 'JumlahProduk', 'Subtotal', 'Tanggal', 'tempat_id', 'created_by'
+        'penjualanID', 'produkID', 'JumlahProduk', 'Subtotal', 'Tanggal', 'tempat_id', 'created_by', 'metode'
     ];
 
     public $timestamps = false;

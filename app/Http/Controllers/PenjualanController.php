@@ -45,6 +45,7 @@ class PenjualanController extends Controller
                 'Subtotal' => $item['jumlah'] * $item['harga'],
                 'Tanggal' => Carbon::now(),
                 'tempat_id' => tempatID(),
+                'metode' => $req->metode,
                 'created_by' => userID()
             ]);
         }
