@@ -17,6 +17,14 @@ function accessTypes() : array {
     ];
 }
 
+function paymentMethod () : array {
+    return [
+        1 => "TUNAI",
+        2 => "QRIS",
+        3 => "TRANSFER"
+    ];
+}
+
 if (!function_exists('formatTanggal')) {
     /**
      * Format tanggal ke dalam bahasa Indonesia (tanpa hari)

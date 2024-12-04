@@ -182,6 +182,14 @@ hr.dotted {
   height: 1px;
 }
 
+hr.dotted-black {
+  border: none;
+  border-top: 3px dashed rgb(0, 0, 0);
+  color: black;
+  background-color: transparent;
+  height: 1px;
+}
+
 .trx-label {
   position: absolute;
   top: 0;
