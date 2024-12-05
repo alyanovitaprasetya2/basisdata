@@ -7,7 +7,7 @@
 # 
 # Host: 127.0.0.1 (mariadb.org binary distribution 10.6.19)
 # Database: cashier
-# Generation time: 2024-12-05T23:57:52+07:00
+# Generation time: 2024-12-05T23:59:24+07:00
 # ************************************************************
 
 
@@ -374,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-# Dump completed on 2024-12-05T23:57:52+07:00
+# Dump completed on 2024-12-05T23:59:24+07:00
