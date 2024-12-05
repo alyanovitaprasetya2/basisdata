@@ -30,6 +30,17 @@
                 @endif
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
+                <a class="nav-link {{ Route::currentRouteName() == 'meja' ? 'active text-primary' : '' }}" href="{{ route('meja') }}">
+                    <div
+                        class="text-center me-2 d-flex align-items-center justify-content-center">
+                        @include('layouts.icons.table')
+                    </div>
+                    <span class="nav-link-text ms-1">Meja</span>
+                </a>
+                @endif
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ in_array(Route::currentRouteName(), ['rekap', 'rekap.detail']) ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
