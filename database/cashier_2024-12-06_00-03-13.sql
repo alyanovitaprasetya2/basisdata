@@ -1,13 +1,13 @@
 # ************************************************************
 # Antares - SQL Client
-# Version 0.7.29
+# Version 0.7.30
 # 
 # https://antares-sql.app/
 # https://github.com/antares-sql/antares
 # 
 # Host: 127.0.0.1 (mariadb.org binary distribution 10.6.19)
 # Database: cashier
-# Generation time: 2024-12-04T09:38:43+07:00
+# Generation time: 2024-12-06T00:03:28+07:00
 # ************************************************************
 
 
@@ -31,11 +31,9 @@ CREATE TABLE `detail_penjualan` (
   `produkID` bigint(20) unsigned NOT NULL,
   `Tanggal` date NOT NULL,
   `JumlahProduk` int(11) NOT NULL,
-  `metode` tinyint(10) DEFAULT NULL COMMENT '1. Tunai 2. QRIS 3. Transfer',
   `Subtotal` int(11) NOT NULL,
   `tempat_id` int(11) NOT NULL,
   `created_by` bigint(20) unsigned NOT NULL,
-  `Kembali` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `penjualanID` (`penjualanID`),
   KEY `produkID` (`produkID`),
@@ -43,9 +41,31 @@ CREATE TABLE `detail_penjualan` (
   CONSTRAINT `detail_penjualan_ibfk_1` FOREIGN KEY (`penjualanID`) REFERENCES `penjualan` (`id`),
   CONSTRAINT `detail_penjualan_ibfk_2` FOREIGN KEY (`produkID`) REFERENCES `produk` (`id`),
   CONSTRAINT `detail_penjualan_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+LOCK TABLES `detail_penjualan` WRITE;
+/*!40000 ALTER TABLE `detail_penjualan` DISABLE KEYS */;
 
+INSERT INTO `detail_penjualan` (`id`, `penjualanID`, `produkID`, `Tanggal`, `JumlahProduk`, `Subtotal`, `tempat_id`, `created_by`) VALUES
+	(1, 1, 5, "2024-12-04", 2, 6000, 1, 2),
+	(2, 2, 6, "2024-12-04", 2, 16000, 1, 2),
+	(3, 3, 3, "2024-12-05", 2, 40000, 1, 2),
+	(4, 4, 7, "2024-12-05", 2, 12000, 1, 2),
+	(5, 5, 8, "2024-12-05", 2, 20000, 1, 2),
+	(6, 6, 7, "2024-12-05", 3, 18000, 1, 2),
+	(7, 7, 3, "2024-12-05", 2, 40000, 1, 2),
+	(8, 7, 5, "2024-12-05", 2, 6000, 1, 2),
+	(9, 7, 6, "2024-12-05", 1, 8000, 1, 2),
+	(10, 7, 8, "2024-12-05", 1, 10000, 1, 2),
+	(11, 8, 3, "2024-12-05", 2, 40000, 1, 2),
+	(12, 9, 7, "2024-12-05", 2, 12000, 1, 2),
+	(13, 10, 7, "2024-12-05", 2, 12000, 1, 2),
+	(14, 11, 6, "2024-12-05", 2, 16000, 1, 2),
+	(15, 11, 7, "2024-12-05", 2, 12000, 1, 2),
+	(16, 11, 8, "2024-12-05", 1, 10000, 1, 2);
+
+/*!40000 ALTER TABLE `detail_penjualan` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
@@ -70,6 +90,36 @@ INSERT INTO `kategori` (`id`, `nama`, `tempat_id`) VALUES
 	(3, "Dessert", 1);
 
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+# Dump of table meja
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `meja`;
+
+CREATE TABLE `meja` (
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `meja` varchar(225) NOT NULL,
+  `is_active` tinyint(4) NOT NULL COMMENT '1. Dipakai 2. Ksosong 3. Diperbaiki',
+  `tempat_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+LOCK TABLES `meja` WRITE;
+/*!40000 ALTER TABLE `meja` DISABLE KEYS */;
+
+INSERT INTO `meja` (`id`, `meja`, `is_active`, `tempat_id`) VALUES
+	(1, "MEJA-1", 1, 1),
+	(2, "MEJA-2", 1, 1),
+	(3, "MEJA-3", 2, 1),
+	(4, "MEJA-4", 1, 1),
+	(5, "MEJA-5", 2, 1),
+	(6, "MEJA-6", 1, 1),
+	(7, "MEJA-7", 1, 1);
+
+/*!40000 ALTER TABLE `meja` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -127,13 +177,23 @@ DROP TABLE IF EXISTS `pelanggan`;
 CREATE TABLE `pelanggan` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `NamaPelanggan` varchar(255) NOT NULL,
+  `Point` int(10) DEFAULT NULL,
   `Alamat` text NOT NULL,
   `NomorTelepon` varchar(15) NOT NULL,
   `tempat_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+LOCK TABLES `pelanggan` WRITE;
+/*!40000 ALTER TABLE `pelanggan` DISABLE KEYS */;
 
+INSERT INTO `pelanggan` (`id`, `NamaPelanggan`, `Point`, `Alamat`, `NomorTelepon`, `tempat_id`) VALUES
+	(2, "Siti Mumainan", NULL, "Semboro Kidul", "0897768998678", 1),
+	(3, "Guido Winata Putra", 2, "Semboro Tengah", "08906875876", 1),
+	(4, "Ferren Diovaldi", NULL, "Umbulsari", "087689687698", 1);
+
+/*!40000 ALTER TABLE `pelanggan` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
@@ -145,7 +205,11 @@ DROP TABLE IF EXISTS `penjualan`;
 CREATE TABLE `penjualan` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `pelangganID` bigint(20) unsigned DEFAULT NULL,
+  `meja_id` bigint(10) unsigned DEFAULT NULL,
   `TanggalPenjualan` date NOT NULL,
+  `Kembali` int(10) DEFAULT NULL,
+  `Metode` tinyint(4) NOT NULL COMMENT '1. TUNAI 2. QRIS 3. TRANSFER',
+  `Dibayar` int(10) DEFAULT NULL,
   `Kode` varchar(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `TotalHarga` int(10) NOT NULL,
   `created_by` bigint(20) unsigned NOT NULL,
@@ -153,11 +217,30 @@ CREATE TABLE `penjualan` (
   PRIMARY KEY (`id`),
   KEY `penjualan_pelangganid_foreign` (`pelangganID`),
   KEY `FK_63OC` (`created_by`),
+  KEY `FK_DT3Q` (`meja_id`),
   CONSTRAINT `FK_63OC` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_DT3Q` FOREIGN KEY (`meja_id`) REFERENCES `meja` (`id`),
   CONSTRAINT `penjualan_pelangganid_foreign` FOREIGN KEY (`pelangganID`) REFERENCES `pelanggan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+LOCK TABLES `penjualan` WRITE;
+/*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
 
+INSERT INTO `penjualan` (`id`, `pelangganID`, `meja_id`, `TanggalPenjualan`, `Kembali`, `Metode`, `Dibayar`, `Kode`, `TotalHarga`, `created_by`, `tempat_id`) VALUES
+	(1, NULL, NULL, "2024-12-04", 4000, 1, 10000, "SKB1856036", 6000, 2, 1),
+	(2, NULL, NULL, "2024-12-04", 4000, 1, 20000, "SKB2571325", 16000, 2, 1),
+	(3, NULL, 4, "2024-12-05", 10000, 1, 50000, "SKB7758990", 40000, 2, 1),
+	(4, NULL, 1, "2024-12-05", NULL, 2, NULL, "SKB4534685", 12000, 2, 1),
+	(5, NULL, 2, "2024-12-05", 5000, 1, 25000, "SKB6771706", 20000, 2, 1),
+	(6, NULL, 1, "2024-12-05", 2000, 1, 20000, "SKB1060753", 17100, 2, 1),
+	(7, NULL, 3, "2024-12-05", 6000, 1, 70000, "SKB6725178", 60800, 2, 1),
+	(8, 3, NULL, "2024-12-05", NULL, 2, NULL, "SKB7245843", 40000, 2, 1),
+	(9, NULL, 4, "2024-12-05", 3000, 1, 15000, "SKB7402789", 12000, 2, 1),
+	(10, NULL, 4, "2024-12-05", 3000, 1, 15000, "SKB3131201", 12000, 2, 1),
+	(11, NULL, 5, "2024-12-05", 2000, 1, 40000, "SKB1242621", 38000, 2, 1);
+
+/*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
@@ -226,14 +309,17 @@ CREATE TABLE `produk` (
   PRIMARY KEY (`id`),
   KEY `FK_KV16` (`kategori_id`),
   CONSTRAINT `FK_KV16` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `produk` WRITE;
 /*!40000 ALTER TABLE `produk` DISABLE KEYS */;
 
 INSERT INTO `produk` (`id`, `kategori_id`, `NamaProduk`, `Harga`, `Price`, `Stok`, `image_path`, `tempat_id`) VALUES
-	(3, 1, "MIe Gekikara", NULL, 20000, 30, "images/RgMRepT0Ob4dfbOO7pvephcu7wrcz6LVwK4odlfV.jpg", 1),
-	(4, 2, "Mie Blecung", NULL, 5000, 50, "images/93ELtjEPcXtnhjzYu54ik1zx8yUdcyzQDnT2LoPw.png", 1);
+	(3, 1, "MIe Gekikara", NULL, 20000, 14, "images/RgMRepT0Ob4dfbOO7pvephcu7wrcz6LVwK4odlfV.jpg", 1),
+	(5, 2, "Es Teh", NULL, 3000, 29, "images/2bGyF3dkzQVs5FUDvVvkSN1eYFOvR2igJjV4tCA0.jpg", 1),
+	(6, 3, "Salad", NULL, 8000, 7, "images/KUnPvTzFI7RrhpbbVuE4MapqcsPNt0P9JXQJSRjz.jpg", 1),
+	(7, 2, "Milo Ice Bubuk", NULL, 6000, 54, "images/Li2MOs48IoU8YnQmvBmzhcwwDOIoe3Do4KUHJSAW.jpg", 1),
+	(8, 1, "Ayam Geprek", NULL, 10000, 74, "images/kiNyQ2u4AIjmFvvM9Pznl0SQu0PwMYhHN4EAiUZy.jpg", 1);
 
 /*!40000 ALTER TABLE `produk` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -288,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-# Dump completed on 2024-12-04T09:38:43+07:00
+# Dump completed on 2024-12-06T00:03:29+07:00
