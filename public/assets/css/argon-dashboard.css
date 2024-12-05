@@ -133,6 +133,12 @@ h3, .h3 {
   }
 }
 
+.status-meja svg {
+  color: red;
+  height: 21px;
+  width: 21px;
+}
+
 .price-label {
   position: absolute;
   top: 0;

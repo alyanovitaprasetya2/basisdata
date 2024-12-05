@@ -25,6 +25,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MejaController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
@@ -79,6 +80,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('/do-update/{id}', [RekapController::class, 'doUpdate'])->name('rekap.doUpdate');
 		Route::delete('/delete/{id}', [RekapController::class, 'delete'])->name('rekap.delete');
 		Route::post('/do-create', [RekapController::class, 'doCreate'])->name('rekap.doCreate');
+	});
+	
+	// MEJA
+	Route::prefix('/meja')->group(function() {
+		Route::get('/index', [MejaController::class, 'index'])->name('meja');
+		Route::put('/meja/{id}', [MejaController::class, 'update'])->name('meja.update');
 	});
 
 	//PENJUALAN

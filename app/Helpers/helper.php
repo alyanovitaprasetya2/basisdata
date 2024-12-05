@@ -44,6 +44,20 @@ function accessTypes($access)
     }
 }
 
+function statusMeja($access)
+{
+    switch ($access) {
+        case 1:
+            return 'Kosong';
+        case 2:
+            return 'Dipakai';
+        case 3:
+            return 'Diperbaiki';
+        default:
+            return 'UNKNOWN';
+    }
+}
+
 if (!function_exists('generateCode')) {
     /**
      * Generate a unique code with a fixed prefix and length.
