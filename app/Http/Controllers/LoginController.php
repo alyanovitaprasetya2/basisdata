@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\UserEntity;
 use App\Models\Tempat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,13 @@ class LoginController extends Controller
                 return redirect()->route('login')->withErrors(['error' => 'Tempat tidak ditemukan.']);
             }
 
-            return redirect()->intended('dashboard');
+            if ($user->role == UserEntity::ADMINISTRATOR) {
+                return redirect()->intended('rekap/list'); // Redirect ke halaman rekap.list jika sebagai Administrator
+            }
+    
+            // Redirect ke halaman penjualan jika bukan Administrator
+            return redirect()->intended('penjualan/index');
+            // return redirect()->intended('penjualan/index');
         }
 
         return back()->withErrors([
