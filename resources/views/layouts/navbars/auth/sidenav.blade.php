@@ -50,6 +50,15 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ in_array(Route::currentRouteName(), ['pelanggan', 'rekap.detail']) ? 'active text-primary' : '' }}" href="{{ route('pelanggan') }}">
+                    <div
+                        class="text-center me-2 d-flex align-items-center justify-content-center">
+                        @include('layouts.icons.member')
+                    </div>
+                    <span class="nav-link-text ms-1">Member</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'produk' ? 'active text-primary' : '' }}" href="{{ route('produk') }}">
                     <div class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.product')

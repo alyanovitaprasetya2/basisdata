@@ -27,6 +27,7 @@ use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RekapController;
@@ -72,6 +73,16 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/do-create', [PegawaiController::class, 'doCreate'])->name('pegawai.doCreate');
 	});
 
+	// Pelanggan/Member
+	Route::prefix('/pelanggan')->group(function() {
+		Route::get('/list', [PelangganController::class, 'index'])->name('pelanggan');
+		Route::get('/add', [PelangganController::class, 'add'])->name('pelanggan.add');
+		Route::get('/update/{id}', [PelangganController::class, 'update'])->name('pelanggan.update');
+		Route::put('/do-update/{id}', [PelangganController::class, 'doUpdate'])->name('pelanggan.doUpdate');
+		Route::delete('/delete/{id}', [PelangganController::class, 'delete'])->name('pelanggan.delete');
+		Route::post('/do-create', [PelangganController::class, 'store'])->name('pelanggan.doCreate');
+	});
+
 	// REKAP PENJUALAN
 	Route::prefix('/rekap')->group(function() {
 		Route::get('/list', [RekapController::class, 'index'])->name('rekap');
@@ -80,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('/do-update/{id}', [RekapController::class, 'doUpdate'])->name('rekap.doUpdate');
 		Route::delete('/delete/{id}', [RekapController::class, 'delete'])->name('rekap.delete');
 		Route::post('/do-create', [RekapController::class, 'doCreate'])->name('rekap.doCreate');
+		Route::get('/export-excel', [RekapController::class, 'exportExcel'])->name('exportExcel');
 	});
 	
 	// MEJA

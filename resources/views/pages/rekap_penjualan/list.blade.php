@@ -5,25 +5,13 @@
     <div class="row mt-4 mx-4">
         <div class="col-7">
             <div class="card mb-4 px-4">
-                <div class="card-header px-0 d-flex justify-content-between pb-0">
-                    <h6>Rekap Penjualan</h6>
-                    {{-- <a href="{{ route('pegawai.add') }}" class="btn btn-primary">Tambah Pegawai</a> --}}
+                <div class="card-header px-0 d-flex align-items-center justify-content-between pb-0">
+                    <h6 class="m-0 fs-5">Rekap Penjualan</h6>
+                    <form action="{{ route('exportExcel') }}">
+                        <button type="submit" class="btn btn-success m-0">Download Excel</button>
+                    </form>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="card border border-secondary">
-                        <div class="card-body">
-                            <form action="" method="GET">
-                                <div class="col-md-auto">
-                                    <select class="form-select" name="" id="">
-                                        <option value="">2025</option>
-                                        <option value="">2024</option>
-                                        <option value="">2023</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
                     <table class="table table-bordered align-items-center mb-0 mt-5">
                         <thead>
                             <tr class="table-light">
@@ -56,6 +44,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-4">
+                        {{ $data->links('vendor.pagination.bootstrap-5') }}
+                    </div>
                     @if (!count($data))
                         <div class="text-center my-5">
                             <h5>Data Belum Tersedia😱</h5>

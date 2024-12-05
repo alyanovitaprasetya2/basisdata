@@ -14,7 +14,8 @@ class Pelanggan extends Model
         "NamaPelanggan",
         "Alamat",
         "NomorTelepon",
-        "tempat_id"
+        "tempat_id",
+        "Point"
     ];
 
     public $timestamps = false;
