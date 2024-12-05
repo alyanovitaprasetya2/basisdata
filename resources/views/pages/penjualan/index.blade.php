@@ -13,7 +13,7 @@
                     <h5>Penjualan</h5>
                 </div>
                 <div class="card-body px-4 pt-0 pb-2">
-                    <div class="card border-1 border-secondary">
+                    <div class="card d-none border-1 border-secondary">
                         <div class="card-body p-3">
                             <form class="row px-2" action="GET">
                                 <div class="col-md-6">

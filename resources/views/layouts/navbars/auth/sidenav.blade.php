@@ -9,7 +9,7 @@
     <hr class="horizontal dark mt-0">
     <div class="w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active text-primary' : '' }}" href="{{ route('home') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -17,7 +17,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ Route::currentRouteName() == 'penjualan' ? 'active text-primary' : '' }}" href="{{ route('penjualan') }}">
