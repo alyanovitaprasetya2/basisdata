@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    @endpush
     @include('layouts.navbars.auth.topnav', ['title' => 'Penjualan'])
     <div class="row mt-4 mx-4">
         <div class="col-9">
@@ -92,6 +96,12 @@
                         <input type="hidden" class="inputan" name="totalHarga">
                         <input type="hidden" class="inputan-pesanan" name="pesanan" value="">
                         <input type="hidden" class="inputan-kembalian" name="kembalian" id="kembalianInput">
+                        <select name="pelanggan" class="form-select mb-3">
+                            <option value="" selected>- Pilih Pelaggan -</option>
+                            @foreach ($pelanggan as $p)
+                                <option value="{{ $p->id }}" {{ old('NamaPelanggan') == $p->id ? 'selected' : '' }}>{{ $p->NamaPelanggan }}</option>
+                            @endforeach
+                        </select>
                         <select class="form-select mb-3" name="meja" id="">
                                 <option value="" selected>- Pilih Meja -</option>
                                 @foreach ($meja as $k)
@@ -127,6 +137,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         var cleave = new Cleave('#bayar', {

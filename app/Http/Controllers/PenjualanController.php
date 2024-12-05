@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\UserEntity;
 use App\Models\DetailPenjualan;
 use App\Models\Meja;
+use App\Models\Pelanggan;
 use App\Models\Penjualan;
 use App\Models\Produk;
 use Carbon\Carbon;
@@ -17,13 +18,15 @@ class PenjualanController extends Controller
     public function index()
     {   
         $produk = Produk::where('tempat_id', tempatID())->get();
+        $pelanggan = Pelanggan::where('tempat_id', tempatID())->get();
         $meja = Meja::where('tempat_id', tempatID())
                     ->where('is_active', 1)
                     ->get();
 
         return view('pages.penjualan.index', [
-            "produk" => $produk,
-            "meja" => $meja,
+            "produk"    => $produk,
+            "meja"      => $meja,
+            "pelanggan" => $pelanggan
         ]);
     }
 
@@ -38,7 +41,7 @@ class PenjualanController extends Controller
         ]);
 
         $penjualan = Penjualan::create([
-            "pelangganID"      => null,
+            "pelangganID"      => $req->pelanggan ?? null,
             "TanggalPenjualan" => Carbon::now(),
             "TotalHarga"       => $req->totalHarga,
             "created_by"       => userID(),
@@ -64,6 +67,8 @@ class PenjualanController extends Controller
                 'created_by'   => userID(),
             ]);
 
+            $jumlah = $item['jumlah'];
+
             $produk = Produk::find($item['produkID']);
             if($produk){
                 $produk->Stok -= $item['jumlah'];
@@ -79,6 +84,16 @@ class PenjualanController extends Controller
                 return redirect()->back();
             }
         }
+
+        if($req->pelanggan){
+            $pelanggan = Pelanggan::findOrFail($req->pelanggan);
+            $pointSekarang = $pelanggan->Point?? 0;
+            $pointBaru = $pointSekarang + $jumlah;
+            $pelanggan->update([
+                "Point" => $pointBaru
+            ]);
+        }
+
 
         if($req->meja){
             $mejaID = (int)$req->meja;

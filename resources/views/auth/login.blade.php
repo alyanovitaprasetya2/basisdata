@@ -31,12 +31,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <p class="mb-1 text-sm mx-auto">
-                                        Lupa Password? Reset Password mu
-                                        <a href="{{ route('reset-password') }}" class="text-primary font-weight-bold">disini</a>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                         <div
