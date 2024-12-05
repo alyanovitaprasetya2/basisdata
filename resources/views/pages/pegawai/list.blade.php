@@ -10,7 +10,7 @@
                     <a href="{{ route('pegawai.add') }}" class="btn btn-primary">Tambah Pegawai</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="card border border-secondary">
+                    <div class="card d-none border border-secondary">
                         <div class="card-body">
                             <form action="" method="GET">
                                 <div class="col-md-auto">
