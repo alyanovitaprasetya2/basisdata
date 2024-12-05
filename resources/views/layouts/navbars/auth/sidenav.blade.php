@@ -18,6 +18,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li> --}}
+            {{-- somes --}}
             <li class="nav-item">
                 @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ Route::currentRouteName() == 'penjualan' ? 'active text-primary' : '' }}" href="{{ route('penjualan') }}">
