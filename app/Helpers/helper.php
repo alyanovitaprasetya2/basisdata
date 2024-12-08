@@ -39,6 +39,8 @@ function accessTypes($access)
             return 'Pegawai';
         case 3:
             return 'Super Admin';
+        case 4:
+            return 'Pengawas';
         default:
             return 'UNKNOWN';
     }

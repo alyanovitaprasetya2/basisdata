@@ -20,7 +20,29 @@
             </li> --}}
             {{-- somes --}}
             <li class="nav-item">
-                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::SUPER_ADMIN)
+                <a class="nav-link {{ Route::currentRouteName() == 'tempat' ? 'active text-primary' : '' }}" href="{{ route('tempat') }}">
+                    <div
+                        class="text-center me-2 d-flex align-items-center justify-content-center">
+                        @include('layouts.icons.tempat')
+                    </div>
+                    <span class="nav-link-text ms-1">Tempat</span>
+                </a>
+                @endif
+            </li>
+            <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::SUPER_ADMIN)
+                <a class="nav-link {{ Route::currentRouteName() == 'users' ? 'active text-primary' : '' }}" href="{{ route('users') }}">
+                    <div
+                        class="text-center me-2 d-flex align-items-center justify-content-center">
+                        @include('layouts.icons.users')
+                    </div>
+                    <span class="nav-link-text ms-1">Users</span>
+                </a>
+                @endif
+            </li>
+            <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PEGAWAI)
                 <a class="nav-link {{ Route::currentRouteName() == 'penjualan' ? 'active text-primary' : '' }}" href="{{ route('penjualan') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -31,7 +53,7 @@
                 @endif
             </li>
             <li class="nav-item">
-                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::ADMINISTRATOR)
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PEGAWAI)
                 <a class="nav-link {{ Route::currentRouteName() == 'meja' ? 'active text-primary' : '' }}" href="{{ route('meja') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -42,6 +64,7 @@
                 @endif
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PENGAWAS || Auth::check() && Auth::user()->role === \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ in_array(Route::currentRouteName(), ['rekap', 'rekap.detail']) ? 'active text-primary' : '' }}" href="{{ route('rekap') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -49,8 +72,10 @@
                     </div>
                     <span class="nav-link-text ms-1">Rekapitulasi</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PEGAWAI)
                 <a class="nav-link {{ in_array(Route::currentRouteName(), ['pelanggan', 'rekap.detail']) ? 'active text-primary' : '' }}" href="{{ route('pelanggan') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -58,16 +83,20 @@
                     </div>
                     <span class="nav-link-text ms-1">Member</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PENGAWAS || Auth::check() && Auth::user()->role === \App\Entities\UserEntity::ADMINISTRATOR )
                 <a class="nav-link {{ Route::currentRouteName() == 'produk' ? 'active text-primary' : '' }}" href="{{ route('produk') }}">
                     <div class="text-center me-2 d-flex align-items-center justify-content-center">
                         @include('layouts.icons.product')
                     </div>
                     <span class="nav-link-text ms-1">Produk</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::PENGAWAS)
                 <a class="nav-link {{ Route::currentRouteName() == 'kategori' ? 'active text-primary' : '' }}" href="{{ route('kategori') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -75,9 +104,10 @@
                     </div>
                     <span class="nav-link-text ms-1">Kategori</span>
                 </a>
+                @endif
             </li>
             <li class="nav-item">
-                @if(Auth::check() && Auth::user()->role !== \App\Entities\UserEntity::PEGAWAI)
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ Route::currentRouteName() == 'pegawai' ? 'active text-primary' : '' }}" href="{{ route('pegawai') }}">
                     @include('layouts.icons.employee')
                     <span class="nav-link-text ms-1">Pegawai</span>
