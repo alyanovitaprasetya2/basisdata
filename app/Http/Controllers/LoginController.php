@@ -6,6 +6,7 @@ use App\Entities\UserEntity;
 use App\Models\Tempat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
 
@@ -39,17 +40,17 @@ class LoginController extends Controller
                 session()->put('tempat_id', (int) $tempatID);
                 session()->put('tempat_nama', $tempat->nama);
                 session()->put('tempat_foto', $tempat->foto);
-            } else {
-                return redirect()->route('login')->withErrors(['error' => 'Tempat tidak ditemukan.']);
             }
 
             if ($user->role == UserEntity::ADMINISTRATOR) {
-                return redirect()->intended('rekap/list'); // Redirect ke halaman rekap.list jika sebagai Administrator
+                return redirect()->route('rekap');
+            } elseif ($user->role == UserEntity::PENGAWAS) {
+                return redirect()->route('rekap');
+            } elseif ($user->role == UserEntity::SUPER_ADMIN) {
+                return redirect()->route('users');
             }
-    
-            // Redirect ke halaman penjualan jika bukan Administrator
-            return redirect()->intended('penjualan/index');
-            // return redirect()->intended('penjualan/index');
+            
+            return redirect()->route('penjualan');
         }
 
         return back()->withErrors([

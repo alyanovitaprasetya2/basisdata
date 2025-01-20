@@ -7,7 +7,7 @@
 # 
 # Host: 127.0.0.1 (mariadb.org binary distribution 10.6.19)
 # Database: cashier
-# Generation time: 2024-12-06T00:03:28+07:00
+# Generation time: 2025-01-20T09:07:29+07:00
 # ************************************************************
 
 
@@ -41,7 +41,7 @@ CREATE TABLE `detail_penjualan` (
   CONSTRAINT `detail_penjualan_ibfk_1` FOREIGN KEY (`penjualanID`) REFERENCES `penjualan` (`id`),
   CONSTRAINT `detail_penjualan_ibfk_2` FOREIGN KEY (`produkID`) REFERENCES `produk` (`id`),
   CONSTRAINT `detail_penjualan_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 LOCK TABLES `detail_penjualan` WRITE;
 /*!40000 ALTER TABLE `detail_penjualan` DISABLE KEYS */;
@@ -62,7 +62,26 @@ INSERT INTO `detail_penjualan` (`id`, `penjualanID`, `produkID`, `Tanggal`, `Jum
 	(13, 10, 7, "2024-12-05", 2, 12000, 1, 2),
 	(14, 11, 6, "2024-12-05", 2, 16000, 1, 2),
 	(15, 11, 7, "2024-12-05", 2, 12000, 1, 2),
-	(16, 11, 8, "2024-12-05", 1, 10000, 1, 2);
+	(16, 11, 8, "2024-12-05", 1, 10000, 1, 2),
+	(17, 12, 3, "2024-12-06", 2, 40000, 1, 4),
+	(18, 12, 5, "2024-12-06", 2, 6000, 1, 4),
+	(19, 13, 3, "2024-12-06", 1, 20000, 1, 4),
+	(20, 13, 5, "2024-12-06", 1, 3000, 1, 4),
+	(21, 14, 3, "2024-12-06", 1, 20000, 1, 4),
+	(22, 15, 3, "2024-12-06", 1, 20000, 1, 2),
+	(23, 16, 7, "2024-12-06", 5, 30000, 1, 2),
+	(24, 16, 8, "2024-12-06", 6, 60000, 1, 2),
+	(25, 17, 8, "2024-12-06", 14, 140000, 1, 2),
+	(26, 18, 6, "2024-12-08", 2, 16000, 1, 2),
+	(27, 19, 7, "2024-12-08", 3, 18000, 1, 2),
+	(28, 20, 6, "2024-12-08", 1, 8000, 1, 2),
+	(29, 21, 6, "2024-12-08", 2, 16000, 1, 2),
+	(30, 22, 5, "2025-01-18", 2, 6000, 1, 4),
+	(31, 22, 8, "2025-01-18", 1, 10000, 1, 4),
+	(32, 23, 3, "2025-01-20", 1, 20000, 1, 2),
+	(33, 24, 5, "2025-01-20", 1, 3000, 1, 2),
+	(34, 25, 3, "2025-01-20", 1, 20000, 1, 2),
+	(35, 26, 6, "2025-01-20", 2, 16000, 1, 2);
 
 /*!40000 ALTER TABLE `detail_penjualan` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -111,10 +130,10 @@ LOCK TABLES `meja` WRITE;
 /*!40000 ALTER TABLE `meja` DISABLE KEYS */;
 
 INSERT INTO `meja` (`id`, `meja`, `is_active`, `tempat_id`) VALUES
-	(1, "MEJA-1", 1, 1),
+	(1, "MEJA-1", 2, 1),
 	(2, "MEJA-2", 1, 1),
 	(3, "MEJA-3", 2, 1),
-	(4, "MEJA-4", 1, 1),
+	(4, "MEJA-4", 2, 1),
 	(5, "MEJA-5", 2, 1),
 	(6, "MEJA-6", 1, 1),
 	(7, "MEJA-7", 1, 1);
@@ -188,9 +207,9 @@ LOCK TABLES `pelanggan` WRITE;
 /*!40000 ALTER TABLE `pelanggan` DISABLE KEYS */;
 
 INSERT INTO `pelanggan` (`id`, `NamaPelanggan`, `Point`, `Alamat`, `NomorTelepon`, `tempat_id`) VALUES
-	(2, "Siti Mumainan", NULL, "Semboro Kidul", "0897768998678", 1),
-	(3, "Guido Winata Putra", 2, "Semboro Tengah", "08906875876", 1),
-	(4, "Ferren Diovaldi", NULL, "Umbulsari", "087689687698", 1);
+	(2, "Siti Mumainan", 6, "Semboro Kidul", "0897768998678", 1),
+	(3, "Guido Winata Putra", 4, "Semboro Tengah", "08906875876", 1),
+	(4, "Ferren Diovaldi", 3, "Umbulsari", "087689687698", 1);
 
 /*!40000 ALTER TABLE `pelanggan` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -221,7 +240,7 @@ CREATE TABLE `penjualan` (
   CONSTRAINT `FK_63OC` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_DT3Q` FOREIGN KEY (`meja_id`) REFERENCES `meja` (`id`),
   CONSTRAINT `penjualan_pelangganid_foreign` FOREIGN KEY (`pelangganID`) REFERENCES `pelanggan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `penjualan` WRITE;
 /*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
@@ -237,7 +256,22 @@ INSERT INTO `penjualan` (`id`, `pelangganID`, `meja_id`, `TanggalPenjualan`, `Ke
 	(8, 3, NULL, "2024-12-05", NULL, 2, NULL, "SKB7245843", 40000, 2, 1),
 	(9, NULL, 4, "2024-12-05", 3000, 1, 15000, "SKB7402789", 12000, 2, 1),
 	(10, NULL, 4, "2024-12-05", 3000, 1, 15000, "SKB3131201", 12000, 2, 1),
-	(11, NULL, 5, "2024-12-05", 2000, 1, 40000, "SKB1242621", 38000, 2, 1);
+	(11, NULL, 5, "2024-12-05", 2000, 1, 40000, "SKB1242621", 38000, 2, 1),
+	(12, 4, 2, "2024-12-06", 4000, 1, 50000, "SKB6407051", 46000, 4, 1),
+	(13, 2, 3, "2024-12-06", 2000, 1, 25000, "SKB0688024", 23000, 4, 1),
+	(14, 2, 4, "2024-12-06", 3000, 1, 23000, "SKB3459068", 20000, 4, 1),
+	(15, NULL, 1, "2024-12-06", 100000, 1, 1100000, "SKB0451085", 20000, 2, 1),
+	(16, NULL, 2, "2024-12-06", 10000, 1, 100000, "SKB2358541", 90000, 2, 1),
+	(17, NULL, 3, "2024-12-06", 10000, 1, 150000, "SKB8659140", 140000, 2, 1),
+	(18, 3, 3, "2024-12-08", 20000, 1, 100000, "SKB9836713", 16000, 2, 1),
+	(19, 2, 1, "2024-12-08", 30000, 1, 150000, "SKB7337002", 18000, 2, 1),
+	(20, 4, 2, "2024-12-08", 50000, 1, 450000, "SKB1266654", 8000, 2, 1),
+	(21, NULL, NULL, "2024-12-08", NULL, 2, NULL, "SKB4860192", 16000, 2, 1),
+	(22, NULL, 4, "2025-01-18", 4000, 1, 20000, "SKB5903432", 16000, 4, 1),
+	(23, NULL, 1, "2025-01-20", 30000, 1, 50000, "SKB6672561", 20000, 2, 1),
+	(24, 2, 4, "2025-01-20", 47000, 2, 50000, "SKB8127335", 3000, 2, 1),
+	(25, NULL, 3, "2025-01-20", 5000, 1, 25000, "SKB6759522", 20000, 2, 1),
+	(26, NULL, 5, "2025-01-20", NULL, 2, NULL, "SKB1593068", 16000, 2, 1);
 
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -315,11 +349,11 @@ LOCK TABLES `produk` WRITE;
 /*!40000 ALTER TABLE `produk` DISABLE KEYS */;
 
 INSERT INTO `produk` (`id`, `kategori_id`, `NamaProduk`, `Harga`, `Price`, `Stok`, `image_path`, `tempat_id`) VALUES
-	(3, 1, "MIe Gekikara", NULL, 20000, 14, "images/RgMRepT0Ob4dfbOO7pvephcu7wrcz6LVwK4odlfV.jpg", 1),
-	(5, 2, "Es Teh", NULL, 3000, 29, "images/2bGyF3dkzQVs5FUDvVvkSN1eYFOvR2igJjV4tCA0.jpg", 1),
-	(6, 3, "Salad", NULL, 8000, 7, "images/KUnPvTzFI7RrhpbbVuE4MapqcsPNt0P9JXQJSRjz.jpg", 1),
-	(7, 2, "Milo Ice Bubuk", NULL, 6000, 54, "images/Li2MOs48IoU8YnQmvBmzhcwwDOIoe3Do4KUHJSAW.jpg", 1),
-	(8, 1, "Ayam Geprek", NULL, 10000, 74, "images/kiNyQ2u4AIjmFvvM9Pznl0SQu0PwMYhHN4EAiUZy.jpg", 1);
+	(3, 1, "MIe Gekikara", NULL, 20000, 73, "images/RgMRepT0Ob4dfbOO7pvephcu7wrcz6LVwK4odlfV.jpg", 1),
+	(5, 2, "Es Teh", NULL, 3000, 23, "images/2bGyF3dkzQVs5FUDvVvkSN1eYFOvR2igJjV4tCA0.jpg", 1),
+	(6, 3, "Salad", NULL, 8000, 73, "images/KUnPvTzFI7RrhpbbVuE4MapqcsPNt0P9JXQJSRjz.jpg", 1),
+	(7, 2, "Milo Ice Bubuk", NULL, 6000, 46, "images/Li2MOs48IoU8YnQmvBmzhcwwDOIoe3Do4KUHJSAW.jpg", 1),
+	(8, 1, "Ayam Geprek", NULL, 10000, 53, "images/kiNyQ2u4AIjmFvvM9Pznl0SQu0PwMYhHN4EAiUZy.jpg", 1);
 
 /*!40000 ALTER TABLE `produk` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -335,7 +369,7 @@ CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `role` tinyint(4) NOT NULL COMMENT '1: administrator, 2: pegawai',
+  `role` tinyint(4) NOT NULL COMMENT '1: administrator, 2: pegawai, 3: Super Admin, 4: Pengawas',
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
@@ -344,17 +378,20 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tempat_id` int(11) DEFAULT NULL,
+  `tempat_id` int(11) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
 INSERT INTO `users` (`id`, `username`, `foto`, `role`, `firstname`, `lastname`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `tempat_id`) VALUES
 	(1, "admin", NULL, 1, "Admin", "Admin", "admin@argon.com", NULL, "$2y$12$crI8d59aRPO1lN6wmo4Mteey8iqMDQ3ERYK1CvNjP4vB7YfLaVfbC", NULL, NULL, NULL, 1),
-	(2, "Paska", NULL, 2, NULL, NULL, "paska@gmail.com", NULL, "$2y$12$8g0B9wl4fsfKL/hfbyXZW.Bgs5hbxxjQAVxMYmvb6LOUSVrMlkFfK", NULL, "2024-11-06 03:33:51", "2024-11-25 14:51:54", 1);
+	(2, "Paska", NULL, 2, NULL, NULL, "paska@gmail.com", NULL, "$2y$12$8g0B9wl4fsfKL/hfbyXZW.Bgs5hbxxjQAVxMYmvb6LOUSVrMlkFfK", NULL, "2024-11-06 03:33:51", "2024-11-25 14:51:54", 1),
+	(4, "Adenia Wirasti", NULL, 2, NULL, NULL, "adenia@gmail.com", NULL, "$2y$12$UbsRV0L9qXvxqFnkvkdWbOWY9p83SDEzH92bmbXl3mU0d0tepncVi", NULL, "2024-12-06 02:24:21", "2024-12-06 02:24:21", 1),
+	(5, "alana", NULL, 3, NULL, NULL, "alana@gmail.com", NULL, "$2y$12$lo0/UFO9Do/T8FrxFRAPPOu357qepz56kAaEO6h4innojnQO4cZiO", NULL, NULL, NULL, 0),
+	(6, "waluyo", NULL, 4, NULL, NULL, "waluyo@gmail.com", NULL, "$2y$12$.ebypRr3D94x2vc4dhKAaOiGxS2Gmv9l1k1zFTjh0NN0frmBkP5p.", NULL, "2024-12-06 06:23:29", "2024-12-06 06:23:29", 1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -374,4 +411,4 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-# Dump completed on 2024-12-06T00:03:29+07:00
+# Dump completed on 2025-01-20T09:07:29+07:00

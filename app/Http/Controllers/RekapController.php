@@ -13,15 +13,23 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RekapController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = Penjualan::query();
 
-        if(Auth::user()->role === UserEntity::ADMINISTRATOR) {
+        if(Auth::user()->role === UserEntity::ADMINISTRATOR || Auth::user()->role === UserEntity::PENGAWAS) {
             $data = $data->where('tempat_id', tempatID());
         } else {
             $data = $data->where('tempat_id', tempatID())
                         ->where('created_by', userID());
+        }
+
+        if($request->filled('daterange')) {
+            $dates = explode(' - ', $request->daterange);
+            $start_date = $dates[0];
+            $end_date = $dates[1];
+
+            $data = $data->whereBetween('TanggalPenjualan', [$start_date, $end_date]);
         }
 
         $data = $data->paginate(10);

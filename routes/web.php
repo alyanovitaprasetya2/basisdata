@@ -31,6 +31,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RekapController;
+use App\Http\Controllers\SuperController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -46,6 +47,15 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('nota/{id}', [RekapController::class, 'nota'])->name('nota');
+
+	// SUPER ADMIN
+	Route::prefix('/super')->group(function() {
+		Route::get('/users', [SuperController::class, 'users'])->name('users');
+		Route::get('/users/add', [SuperController::class, 'createUser'])->name('users.add');
+		Route::post('/users/doCreate', [SuperController::class, 'doCreateUser'])->name('users.doCreate');
+
+		Route::get('/tempat', [SuperController::class, 'tempat'])->name('tempat');
+	});
 	
 	// KATEGORI
 	Route::prefix('/kategori')->group(function() {
