@@ -1,5 +1,5 @@
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
-    id="sidenav-main">
+    id="sidenav-main" style="z-index: 5">
     <div class="sidenav-header">
         <a class="navbar-brand d-flex justify-content-center h-100 align-items-center p-1 m-0" href="{{ route('home') }}"
             target="_blank">
@@ -9,7 +9,8 @@
     <hr class="horizontal dark mt-0">
     <div class="w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            {{-- <li class="nav-item">
+            <li class="nav-item">
+                @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::ADMINISTRATOR)
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active text-primary' : '' }}" href="{{ route('home') }}">
                     <div
                         class="text-center me-2 d-flex align-items-center justify-content-center">
@@ -17,7 +18,8 @@
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
-            </li> --}}
+                @endif
+            </li>
             {{-- somes --}}
             <li class="nav-item">
                 @if(Auth::check() && Auth::user()->role === \App\Entities\UserEntity::SUPER_ADMIN)

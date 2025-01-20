@@ -248,22 +248,22 @@
                     listPesanan.appendChild(card);
                 }
 
-                // Tambahkan event listener untuk input jumlah
-                document.querySelectorAll(".jumlah-input").forEach(input => {
-                    input.addEventListener("change", function () {
-                        const produkId = this.dataset.id;
-                        const newJumlah = parseInt(this.value) || 0;
+                ["input", "change"].forEach(eventType => {
+                    document.querySelectorAll(".jumlah-input").forEach(input => {
+                        input.addEventListener(eventType, function () {
+                            const produkId = this.dataset.id;
+                            let newJumlah = parseInt(this.value) || 0;
 
-                        if (newJumlah < 1) {
-                            this.value = 1;
-                            pesanan[produkId].jumlah = 1;
-                        } else {
+                            if (newJumlah < 1) {
+                                newJumlah = 1;
+                            }
+
                             pesanan[produkId].jumlah = newJumlah;
-                        }
 
-                        recalculateTotalHarga();
-                        updatePesanan();
-                        updateTotalHarga();
+                            recalculateTotalHarga();
+                            updatePesanan();
+                            updateTotalHarga();
+                        });
                     });
                 });
 
